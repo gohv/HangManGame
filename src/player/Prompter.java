@@ -18,9 +18,14 @@ public class Prompter {
 	 */
 
 	public void play() {
-		while (game.getRemainingTries() > 0) {
+		while (game.getRemainingTries() > 0 && !game.isSolved()) {
 			displayProgress();
 			promptForGuess();
+		}
+		if(game.isSolved()){
+			System.out.println("You Won with " + game.getRemainingTries() + " left");
+		}else{
+			System.out.println("You lost, the answer was " + game.getAnswer());
 		}
 	}
 
@@ -31,7 +36,11 @@ public class Prompter {
 		while (!isValid) {
 			System.out.print("Enter a letter: ");
 			String guessAsString = sc.nextLine();
-			char guess = guessAsString.charAt(0);
+			char guess = ' ';
+			if (guessAsString.length() > 0) {
+				guess = guessAsString.charAt(0);
+			}
+
 			try {
 				isHit = game.applyGuess(guess);
 				isValid = true;
