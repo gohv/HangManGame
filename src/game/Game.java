@@ -45,14 +45,23 @@ public class Game {
 	public int getRemainingTries() {
 		return MAX_MISS - misses.length();
 	}
-	private char validateGuess(char letter) throws CustomException{
-		if (!Character.isLetter(letter)){
+
+	private char validateGuess(char letter) throws CustomException {
+		if (!Character.isLetter(letter)) {
 			throw new CustomException("This is not a letter");
 		}
 		letter = Character.toLowerCase(letter);
-		if (misses.indexOf(letter) >= 0 || hits.indexOf(letter) >= 0){
-			throw new CustomException(letter +  " has already been already guessed");
+		if (misses.indexOf(letter) >= 0 || hits.indexOf(letter) >= 0) {
+			throw new CustomException(letter + " has already been already guessed");
 		}
 		return letter;
+	}
+
+	public boolean isSolved() {
+		return getProgress().indexOf('-') == -1;
+	}
+
+	public String getAnswer() {
+		return answer;
 	}
 }
